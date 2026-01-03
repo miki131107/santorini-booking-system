@@ -1,0 +1,88 @@
+/* static/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8; /* Colore di sfondo leggero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    width: 900px; /* Larghezza come nel tuo main.py */
+    height: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.image-side {
+    width: 50%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/santorini.jpg') center center no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image-side h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.form-side {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-side h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #1e90ff;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Assicura che padding e border siano inclusi nella larghezza */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #146eb4;
+}
+
+#messageArea {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Nota: Avrai bisogno di un'immagine chiamata 'santorini.jpg' in static/img/ 
+   o cambia l'URL di sfondo in .image-side */

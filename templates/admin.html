@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&B Santorini - Amministrazione</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Stili specifici per l'Admin Dashboard */
+        .admin-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .dashboard-section h2 {
+            border-bottom: 2px solid #1e90ff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #logoutButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            background-color: #ff4500;
+        }
+        #logoutButton:hover {
+            background-color: #cc3700;
+        }
+    </style>
+</head>
+<body>
+    <button id="logoutButton">Logout</button>
+
+    <div class="admin-container">
+        <h1>Pannello di Amministrazione B&B Santorini</h1>
+
+        <div class="dashboard-section">
+            <h2>Calcolo Guadagni Mensili</h2>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <label for="earningsMonth">Mese (Numero):</label>
+                <input type="number" id="earningsMonth" min="1" max="12" placeholder="Es. 8" style="width: 100px;" required>
+                
+                <label for="earningsYear">Anno:</label>
+                <input type="number" id="earningsYear" min="2023" max="2099" placeholder="Es. 2025" style="width: 100px;" required>
+                
+                <button id="calculateEarningsButton">Calcola Guadagni</button>
+            </div>
+            
+            <p id="earningsResult" style="margin-top: 15px; font-weight: bold; color: blue;">Inserisci mese e anno per calcolare i guadagni.</p>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Prenotazioni Eseguite</h2>
+            <p id="bookingsMessage" style="color: blue;">Caricamento prenotazioni...</p>
+            <table id="bookingsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo Camera</th>
+                        <th>Cliente</th>
+                        <th>Telefono</th>
+                        <th>Inizio</th>
+                        <th>Fine</th>
+                        <th>Costo (€)</th>
+                        <th>Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+    <div class="dashboard-section">
+    <h2>Gestione Tariffe</h2>
+    <form id="updateRatesForm">
+        <div id="ratesInputs">
+            </div>
+        <button type="submit" id="saveRatesButton" style="margin-top: 15px;">Salva Nuove Tariffe</button>
+        <p id="ratesMessage" style="margin-top: 10px; font-weight: bold;"></p>
+    </form>
+</div>
+
+</body>
+</html>

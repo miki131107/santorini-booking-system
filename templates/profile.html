@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&B Santorini - Profilo Utente</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        /* ===================================== */
+        /* STILI SPECIFICI PER PROFILE.HTML */
+        /* ===================================== */
+
+        body {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url('{{ url_for('static', filename='img/Img3.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* --- Contenitore Principale --- */
+        .profile-container {
+            max-width: 900px; 
+            width: 95%;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.98); 
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); 
+        }
+
+        h1 {
+            color: #007bff;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* --- Stili Accordion (Tendina) --- */
+        .accordion-item {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .accordion-content {
+            padding: 15px;
+            background-color: #f9f9f9;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .accordion-content.active {
+            max-height: 500px; /* Abbastanza grande da mostrare il contenuto */
+        }
+
+        /* --- Stili Tabella Prenotazioni --- */
+        .reservations-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .reservations-table th, .reservations-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .reservations-table th {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        /* --- Pulsante Ritorno/Logout --- */
+        #backToLoginButton {
+            display: block;
+            width: 250px;
+            margin: 20px auto 0;
+            padding: 12px;
+            background-color: #dc3545; /* Rosso per Logout */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        #backToLoginButton:hover {
+            background-color: #c82333;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="profile-container">
+        <h1>Dashboard Utente</h1>
+        
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(0)">
+                <span>Dati Account</span>
+                <span>&#9660;</span> 
+            </div>
+            <div class="accordion-content">
+                <p><strong>Nome:</strong> <span id="userName">Caricamento...</span></p>
+                <p><strong>Cognome:</strong> <span id="userSurname">Caricamento...</span></p>
+                <p><strong>Email:</strong> <span id="userEmail">Caricamento...</span></p>
+                <p><strong>Telefono:</strong> <span id="userPhone">Non specificato</span></p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(1)">
+                <span>Le Tue Prenotazioni</span>
+                <span>&#9660;</span>
+            </div>
+            <div class="accordion-content">
+                <table class="reservations-table">
+                    <thead>
+                        <tr>
+                            <th>ID Prenot.</th>
+                            <th>Data Inizio</th>
+                            <th>Data Fine</th>
+                            <th>Camera</th>
+                            <th>Costo Totale</th>
+                            <th>Stato</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationsBody">
+                        </tbody>
+                </table>
+                 <p id="noReservationsMessage" style="color: grey; text-align: center; display: none; padding: 15px;">Nessuna prenotazione trovata.</p>
+            </div>
+        </div>
+        
+        <button id="backToLoginButton">Torna al Login / Logout</button>
+
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+    <script>
+        // Funzione JavaScript per gestire l'apertura e chiusura delle tendine (Accordion)
+        function toggleAccordion(index) {
+            const contents = document.querySelectorAll('.accordion-content');
+            const headers = document.querySelectorAll('.accordion-header');
+
+            contents.forEach((content, i) => {
+                if (i === index) {
+                    const isClosing = content.style.maxHeight;
+                    // Chiudi o apri la tendina cliccata
+                    content.style.maxHeight = isClosing ? null : content.scrollHeight + "px";
+                    headers[i].querySelector('span:last-child').innerHTML = isClosing ? '&#9660;' : '&#9650;';
+                } else {
+                    // Chiudi le altre tendine
+                    content.style.maxHeight = null;
+                    headers[i].querySelector('span:last-child').innerHTML = '&#9660;';
+                }
+            });
+        }
+        
+        // Logica specifica per la pagina, chiama la funzione di caricamento dati definita in client.js
+        document.addEventListener('DOMContentLoaded', () => {
+             // Chiama la funzione di inizializzazione della dashboard (definita nel client.js)
+             if (typeof initProfileDashboard === 'function') {
+                 initProfileDashboard();
+             }
+             // Collega il Logout
+             document.getElementById('backToLoginButton').addEventListener('click', () => {
+                 localStorage.removeItem('user_id');
+                 localStorage.removeItem('user_status');
+                 window.location.href = '/'; 
+             });
+             
+             // Apri la prima tendina (Dati Account) all'avvio
+             toggleAccordion(0); 
+        });
+    </script>
+</body>
+</html>

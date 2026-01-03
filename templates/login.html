@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&B Santorini - Login</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<body>
+    <div class="container">
+        
+        <div class="image-side" style="
+            background-image: url('{{ url_for('static', filename='img/img1.jpg') }}'); 
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-blend-mode: multiply;
+            background-color: rgba(100, 100, 100, 0.5); 
+        ">
+            <h2>BENVENUTO A SANTORINI</h2>
+            <p>Accedi o Registrati per la tua vacanza da sogno.</p>
+        </div>
+        
+        <div class="form-side">
+            <h3>Login Admin / Visitor</h3>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Accedi</button>
+            </form>
+
+            <p>Non hai un account?</p>
+            <button id="showRegister">Registrati (Visitor)</button>
+
+            <form id="register-form" style="display:none;">
+                <h3>Registrazione Visitor</h3>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit">Registrati</button>
+            </form>
+            
+            <p id="messageArea"></p> 
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+</body>
+</html>
